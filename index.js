@@ -1,4 +1,4 @@
-new p5();
+//new p5();
 
 let imgSide, imgCut, imgTop, images;
 
@@ -8,14 +8,21 @@ function preload() {
   imgTop = loadImage("top.png");
 }
 
+const maxWidth = 920;
+const maxHeight = 500;
+
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  var myCanvas = createCanvas(
+    windowWidth,
+    windowWidth * (maxHeight / maxWidth)
+  );
+  myCanvas.parent("container");
+
   imgSide.resize(imgSide.width / 2, 0);
   imgCut.resize(imgCut.width / 2, 0);
   imgTop.resize(imgTop.width / 2, 0);
 
   images = [imgCut, imgSide, imgTop];
-  //   //  img = loadImage("http://localhost:8000/side.png");
   imageMode(CENTER);
 }
 
@@ -27,16 +34,15 @@ function mouseClicked() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(windowWidth, windowWidth * (maxHeight / maxWidth));
 }
 
 function draw() {
   background("#FFF");
-  scale(width / 1000);
-  //   console.log(width, height);
+  scale(windowWidth / maxWidth);
 
   // Original offset
-  translate(images[index].width / 2, images[index].height / 2);
+  translate(images[index].width / 2 - 30, images[index].height / 2 - 30);
 
   // Smallest wheel
   smallestScale = 0.3;
