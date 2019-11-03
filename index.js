@@ -9,7 +9,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1100, 700);
+  createCanvas(windowWidth, windowHeight);
   imgSide.resize(imgSide.width / 2, 0);
   imgCut.resize(imgCut.width / 2, 0);
   imgTop.resize(imgTop.width / 2, 0);
@@ -26,8 +26,14 @@ function mouseClicked() {
   index = (index + 1) % images.length;
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function draw() {
   background("#FFF");
+  scale(width / 1000);
+  //   console.log(width, height);
 
   // Original offset
   translate(images[index].width / 2, images[index].height / 2);
@@ -38,7 +44,7 @@ function draw() {
   push();
   translate(220 + 105, 180 - 105);
   scale(smallestScale);
-  rotate((1 * 0.5 * t) / smallestScale);
+  rotate((1 * t) / smallestScale);
   image(images[index], 0, 0);
   pop();
 
@@ -48,13 +54,13 @@ function draw() {
   push();
   translate(220, 180);
   scale(smallScale);
-  rotate((-1 * 0.5 * t) / smallScale);
+  rotate((-1 * t) / smallScale);
   image(images[index], 0, 0);
   pop();
 
   // Leftmost wheel
   push();
-  rotate(0.5 * t);
+  rotate(t);
   image(images[index], 0, 0);
   pop();
 
@@ -64,10 +70,10 @@ function draw() {
   push();
   translate(532, 50);
   scale(rightScale);
-  rotate(-(0.5 * t) / rightScale);
+  rotate(-t / rightScale);
   image(images[index], 0, 0);
   pop();
 
   // Increase rotation
-  t += 0.1;
+  t += 0.1 * 0.1;
 }
